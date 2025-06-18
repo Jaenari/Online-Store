@@ -1,0 +1,8 @@
+{
+  "startCommand": "apache2-foreground",
+  "expose": [
+    {
+      "port": 80
+    }
+  ]
+}
