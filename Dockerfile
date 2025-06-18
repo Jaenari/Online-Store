@@ -1,25 +1,11 @@
 FROM php:8.2-apache
 
-# Install ekstensi PHP dan tools tambahan
-RUN apt-get update && apt-get install -y \
-    libzip-dev unzip curl git \
-    && docker-php-ext-install pdo_mysql zip
+RUN docker-php-ext-install pdo pdo_mysql
 
-# Install Composer dari official image
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+COPY . /var/www/html/
 
-# Copy seluruh project ke direktori kerja container
-COPY . /var/www/html
+WORKDIR /var/www/html/
 
-# Ubah permission agar bisa diakses Apache
-RUN chown -R www-data:www-data /var/www/html \
-    && a2enmod rewrite
+RUN chmod -R 755 /var/www/html/storage
 
-# Set direktori kerja
-WORKDIR /var/www/html
-
-# Jalankan composer install
-RUN composer install --no-interaction --prefer-dist --optimize-autoloader
-
-# Buka port 80 untuk web server
 EXPOSE 80
