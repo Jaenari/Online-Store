@@ -2,7 +2,8 @@
   "startCommand": "apache2-foreground",
   "expose": [
     {
-      "port": 80
+      "port": 80,
+      "protocol": "http"
     }
   ]
 }
