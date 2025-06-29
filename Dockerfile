@@ -14,6 +14,10 @@ WORKDIR /var/www/html
 # Copy app source
 COPY . .
 
+RUN curl -sS https://getcomposer.org/installer | php && \
+    php composer.phar install --no-dev --optimize-autoloader
+
+
 # Set permissions
 RUN chmod -R 755 /var/www/html/storage
 
